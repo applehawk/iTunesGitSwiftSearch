@@ -12,6 +12,11 @@
 		7E0753F81C5A9A4100EA263C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E0753F61C5A9A4100EA263C /* Main.storyboard */; };
 		7E0753FA1C5A9A4100EA263C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7E0753F91C5A9A4100EA263C /* Assets.xcassets */; };
 		7E0753FD1C5A9A4100EA263C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7E0753FB1C5A9A4100EA263C /* LaunchScreen.storyboard */; };
+		7E0754091C5D4B2000EA263C /* LeftSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E0754081C5D4B2000EA263C /* LeftSearchCell.xib */; };
+		7E07540B1C5D4C7F00EA263C /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E07540A1C5D4C7F00EA263C /* SearchCell.swift */; };
+		7E1D192E1C5DEF0D0050169E /* RightSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7E1D192D1C5DEF0D0050169E /* RightSearchCell.xib */; };
+		7E1D19301C5EA3E90050169E /* SearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1D192F1C5EA3E90050169E /* SearchAPI.swift */; };
+		7E1D19321C5EC3040050169E /* Regex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E1D19311C5EC3040050169E /* Regex.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +27,11 @@
 		7E0753F91C5A9A4100EA263C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7E0753FC1C5A9A4100EA263C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7E0753FE1C5A9A4100EA263C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E0754081C5D4B2000EA263C /* LeftSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftSearchCell.xib; path = ../LeftSearchCell.xib; sourceTree = "<group>"; };
+		7E07540A1C5D4C7F00EA263C /* SearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
+		7E1D192D1C5DEF0D0050169E /* RightSearchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RightSearchCell.xib; path = ../RightSearchCell.xib; sourceTree = "<group>"; };
+		7E1D192F1C5EA3E90050169E /* SearchAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchAPI.swift; sourceTree = "<group>"; };
+		7E1D19311C5EC3040050169E /* Regex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regex.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,12 +64,17 @@
 		7E0753F11C5A9A4100EA263C /* iTunesSearchSwift */ = {
 			isa = PBXGroup;
 			children = (
+				7E07540A1C5D4C7F00EA263C /* SearchCell.swift */,
+				7E1D192D1C5DEF0D0050169E /* RightSearchCell.xib */,
+				7E0754081C5D4B2000EA263C /* LeftSearchCell.xib */,
 				7E0753F21C5A9A4100EA263C /* AppDelegate.swift */,
 				7E0753F41C5A9A4100EA263C /* ViewController.swift */,
 				7E0753F61C5A9A4100EA263C /* Main.storyboard */,
 				7E0753F91C5A9A4100EA263C /* Assets.xcassets */,
 				7E0753FB1C5A9A4100EA263C /* LaunchScreen.storyboard */,
 				7E0753FE1C5A9A4100EA263C /* Info.plist */,
+				7E1D192F1C5EA3E90050169E /* SearchAPI.swift */,
+				7E1D19311C5EC3040050169E /* Regex.swift */,
 			);
 			path = iTunesSearchSwift;
 			sourceTree = "<group>";
@@ -124,8 +139,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E0753FD1C5A9A4100EA263C /* LaunchScreen.storyboard in Resources */,
+				7E0754091C5D4B2000EA263C /* LeftSearchCell.xib in Resources */,
 				7E0753FA1C5A9A4100EA263C /* Assets.xcassets in Resources */,
 				7E0753F81C5A9A4100EA263C /* Main.storyboard in Resources */,
+				7E1D192E1C5DEF0D0050169E /* RightSearchCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,6 +154,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E0753F51C5A9A4100EA263C /* ViewController.swift in Sources */,
+				7E1D19321C5EC3040050169E /* Regex.swift in Sources */,
+				7E07540B1C5D4C7F00EA263C /* SearchCell.swift in Sources */,
+				7E1D19301C5EA3E90050169E /* SearchAPI.swift in Sources */,
 				7E0753F31C5A9A4100EA263C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,6 +307,7 @@
 				7E0754031C5A9A4100EA263C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
