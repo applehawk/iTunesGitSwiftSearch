@@ -22,15 +22,15 @@
                                 <rect key="frame" x="0.0" y="64" width="600" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="Z9j-uw-rGT"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="dta-5b-lhr"/>
                                 </connections>
                             </searchBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bpO-gC-X4s">
                                 <rect key="frame" x="0.0" y="108" width="600" height="492"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="dhR-CY-53r"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="zbv-Mi-cil"/>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="rDu-Zq-oqg"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="NK7-UR-UbD"/>
                                 </connections>
                             </tableView>
                         </subviews>
@@ -57,8 +57,8 @@
                         </segmentedControl>
                     </navigationItem>
                     <connections>
-                        <outlet property="searchBar" destination="LCu-Uf-3kR" id="xn8-XJ-DgR"/>
-                        <outlet property="searchTableResults" destination="bpO-gC-X4s" id="Ww9-DV-qoo"/>
+                        <outlet property="searchBar" destination="LCu-Uf-3kR" id="mqS-is-v3N"/>
+                        <outlet property="searchTableResults" destination="bpO-gC-X4s" id="Exk-Gt-IWX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -8,30 +8,7 @@
 
 import UIKit
 
-extension UIImage {
-    class func loadFromURL( url : NSURL, callback : (image: UIImage)->Void) {
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0);
-        
-        dispatch_async(queue, {
-            let imageData = NSData(contentsOfURL: url);
-            dispatch_async(dispatch_get_main_queue(), {
-                if let image : UIImage = UIImage(data: imageData!) {
-                    callback(image: image);
-        
-                }
-            })
-        });
-    }
-}
 
-extension String {
-    var length: Int { return characters.count    }  // Swift 2.0
-    
-    static func extractNumberFromText( text : String ) -> [String] {
-        let nonDigitCharSet : NSCharacterSet = NSCharacterSet.decimalDigitCharacterSet().invertedSet;
-        return text.componentsSeparatedByCharactersInSet( nonDigitCharSet );
-    }
-}
 
 class ViewController: UIViewController,
     UITableViewDataSource, UITableViewDelegate,
@@ -51,7 +28,9 @@ class ViewController: UIViewController,
     
     var resultsArray : NSArray?
     
-    var albums : [NSDictionary]?;
+    var albums : [NSDictionary]?
+    
+    var searcher : APISearcher = APISearcher(searchHelper: SearchHelperITunes())
     
     //MARK: NSURLSessionDelegate
     
@@ -89,6 +68,10 @@ class ViewController: UIViewController,
         searchTableResults.reloadData();
     }
     func performSearch( query : String? ) {
+        
+        searcher.performSearch(query) { (results:NSDictionary?) -> Void in
+            self.processResults( results?.valueForKey("results") as!y [NSDictionary] );
+        }/*
         if(dataTask != nil) {
             dataTask?.cancel();
         }
@@ -109,7 +92,7 @@ class ViewController: UIViewController,
         })
         if(dataTask != nil) {
             dataTask?.resume();
-        }
+        }*/
     }
     
     func urlForQuery( var query : String ) -> NSURL {
@@ -122,7 +105,7 @@ class ViewController: UIViewController,
     }
     
     func resetSearch() {
-        self.albums?.removeAll();
+        //self.albums?.removeAll();
         self.searchTableResults.reloadData();
     }
     
@@ -220,11 +203,6 @@ class ViewController: UIViewController,
         let sessionConfig : NSURLSessionConfiguration = NSURLSessionConfiguration.defaultSessionConfiguration();
         sessionConfig.HTTPAdditionalHeaders = [ "Accept" : "application/json" ];
         self.session = NSURLSession(configuration: sessionConfig);
-        
-        /*
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-        initWithTarget:self
-        action:@selector(dismissKeyboard)];*/
         
         let tap = UITapGestureRecognizer(target: self, action: Selector("dismissKeyboard"))
     }
