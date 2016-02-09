@@ -7,21 +7,26 @@
 //
 
 import Foundation
+import UIKit
 
 struct SearchAPIResult {
+    init() {
+        
+    }
     init(title: String, image : String, description: String) {
         self.title = title;
         self.image = image;
         self.description = description;
     }
-    let title : String
-    let image : String
-    let description : String
+    var title : String = ""
+    var image : String = ""
+    var description : String = ""
 }
 
 protocol SearchHelper {
     func formatURL( url : String ) -> String
     func performJSONToResultByIndex( jsonResults : NSDictionary?, index: Int ) -> SearchAPIResult?
+    func resultsCount( jsonResults : NSDictionary? ) -> Int
 }
 
 class SearchHelperITunes : SearchHelper {
@@ -32,14 +37,42 @@ class SearchHelperITunes : SearchHelper {
         if jsonResults == nil {
             return nil
         }
-        let results = jsonResults!["results"] as! NSDictionary?
-        let row = results![index]
-        let result = SearchAPIResult(
-            title: row!["trackName"] as! String,
-            image: row!["artworkUrl500"] as! String,
-            description: row!["artistName"] as! String)
+        
+        let results = jsonResults!["results"] as! NSArray
+        let rowData : NSDictionary = results[index] as! NSDictionary
+        var result = SearchAPIResult()
+        
+        if let titleName = rowData.valueForKey("trackName") as? String {
+            result.title = titleName as String!
+        }
+        
+        if let description = rowData.valueForKey("sellerName") as? String {
+            result.description = description as String!
+        }
+        
+        //Choose best Artwork picture
+        //dispatch_async( dispatch_get_main_queue(), {
+            let dataKeys = rowData.allKeys as! [String];
+            let artworkKeys = dataKeys.filter({ (match: String) -> Bool in
+                return match.containsString("artworkUrl") ? true : false;
+            })
+            let sortedArtworkKeys = artworkKeys.sort({ ( s1 : String,  s2 : String) -> Bool in
+                return Int( String.extractNumberFromText(s1).last! ) > Int( String.extractNumberFromText(s2).last!);
+            })
+            if let artworkUrlMaxRes = rowData.valueForKey( sortedArtworkKeys.first! ) as! String? {
+                result.image = artworkUrlMaxRes
+            }
+        //});
         
         return result
+    }
+    func resultsCount( jsonResults : NSDictionary? ) -> Int {
+        if jsonResults != nil {
+            let results = jsonResults!["results"] as! NSArray
+            return results.count
+        } else {
+            return 0
+        }
     }
 }
 
@@ -51,14 +84,38 @@ class SearchHelperGitHub : SearchHelper {
         if jsonResults == nil {
             return nil
         }
-        let results = jsonResults!["results"] as! NSDictionary?
-        let row = results![index]
+        let results = jsonResults!["items"] as! NSArray
+        
+        /*let row = results[index]
         let result = SearchAPIResult(
-            title: row!["trackName"] as! String,
-            image: row!["artworkUrl500"] as! String,
-            description: row!["artistName"] as! String)
+            title: row["url"] as! String,
+            image: row["avatar_url"] as! String,
+            description: row["login"] as! String)*/
+        
+        let rowData : NSDictionary = results[index] as! NSDictionary
+        var result = SearchAPIResult()
+        
+        if let titleName = rowData.valueForKey("url") as? String {
+            result.title = titleName as String!
+        }
+        
+        if let description = rowData.valueForKey("login") as? String {
+            result.description = description as String!
+        }
+        
+        if let avatarUrl = rowData.valueForKey("avatar_url") as? String {
+            result.image = avatarUrl as String!
+        }
         
         return result
+    }
+    func resultsCount( jsonResults : NSDictionary? ) -> Int {
+        if jsonResults != nil {
+            let results = jsonResults!["items"] as! NSArray
+            return results.count
+        } else {
+            return 0
+        }
     }
 }
 
@@ -75,10 +132,19 @@ class APISearcher : NSObject, NSURLSessionDelegate {
     func URLSession(session: NSURLSession, didBecomeInvalidWithError error: NSError?)
     {
         print(error)
+        let alertController = UIAlertController(title: "Message", message: "Network Problem.", preferredStyle: UIAlertControllerStyle.Alert);
+        
+        let alertAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil);
+        
+        alertController.addAction(alertAction);
+        
+        let viewController = UIApplication.sharedApplication().keyWindow?.rootViewController
+        viewController!.presentViewController(alertController, animated: true, completion: nil)
+
     }
     
     func resultsCount() -> Int {
-        return (resultsJSON?.count)!
+        return searchHelper.resultsCount(resultsJSON)
     }
     
     func resultByIndex(index : Int) -> SearchAPIResult? {
